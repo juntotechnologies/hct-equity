@@ -13,10 +13,34 @@
     "figures": "figures",
     "reports": "reports"
   },
-  "horizons_months": [12, 24],
+  "horizons_months": [
+    12,
+    24
+  ],
   "mlflow": {
     "default_tracking_uri": "sqlite:///mlflow.db",
     "experiment": "nmdp/hct-equity",
-    "tags": {"project": "nmdp"}
+    "tags": {
+      "project": "nmdp"
+    }
+  },
+  "dca_thresholds": {
+    "start": 0.05,
+    "stop": 0.5,
+    "step": 0.01
+  },
+  "teaching_simulation": {
+    "n": 20000,
+    "seed": 7,
+    "p_frail": 0.4,
+    "p_severe": 0.3,
+    "ric_logit_base": -1.5,
+    "ric_logit_frail": 3.0,
+    "ric_logit_severe": -2.5,
+    "event_logit_base": -1.0,
+    "event_logit_frail": 2.5,
+    "event_logit_severe": 3.0,
+    "ric_effect_frail": -1.0,
+    "ric_effect_fit": 0.5
   }
 }
