@@ -6,4 +6,4 @@ Short PR-specific notes for completed and planned work.
 
 | Doc | Description |
 |-----|-------------|
-| [Bootstrap the repository](./planned-bootstrap.md) | Adds the uv project, configuration, EDA module, AGENTS.md files and PR templates. |
+| [PR 1: Bootstrap the repository](./1-bootstrap.md) | Adds the uv project, configuration, EDA module, AGENTS.md files and PR templates. |

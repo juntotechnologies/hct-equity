@@ -1,6 +1,6 @@
-# PR: Bootstrap the Repository
+# PR 1: Bootstrap the Repository
 
-Status: in-scope work complete
+Status: underway
 
 Branch: `chore/bootstrap-repo`
 
