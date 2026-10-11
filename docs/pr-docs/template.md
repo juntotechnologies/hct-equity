@@ -23,6 +23,10 @@ PR was split out of a larger effort, say why it stands alone.>
 the specific gap this closes. Reference concrete files/functions where useful,
 e.g. `server/services/transaction-service.ts`. Delete if not needed.>
 
+## Left off
+
+<Done: one line. Next: one-line bullets of the work that is left.>
+
 ## Implementation Checklist
 
 Ordered least -> most consequential/complex (per AGENTS.md): quick, contained wins
