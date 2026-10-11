@@ -54,5 +54,10 @@
       "comorbidity_score",
       "karnofsky_score"
     ]
+  },
+  "teaching_dca_thresholds": {
+    "start": 0.01,
+    "stop": 0.95,
+    "step": 0.01
   }
 }

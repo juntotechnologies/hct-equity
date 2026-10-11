@@ -77,7 +77,14 @@ class Project(BaseModel):
     dca_thresholds: Thresholds
     teaching_simulation: SimulationSettings
     treatment_example: TreatmentExample
+    teaching_dca_thresholds: Thresholds
+
+
+def resolve_paths(paths: Paths, root: Path) -> Paths:
+    return Paths(**{name: root / value for name, value in paths})
 
 
 def load_config(path: Path = CONFIG_PATH) -> Project:
-    return Project.model_validate_json(path.read_text())
+    """Paths resolve against the repository root, so notebooks can run from any directory."""
+    project = Project.model_validate_json(path.read_text())
+    return project.model_copy(update={"paths": resolve_paths(project.paths, path.parents[1])})

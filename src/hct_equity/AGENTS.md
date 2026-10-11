@@ -9,6 +9,7 @@ This is the Python package. Install it with `uv sync`. Run modules with `uv run 
 | `tracking.py` | Starts MLflow runs with the configured experiment and tags. |
 | `eda.py` | Pure EDA summaries and the Kaplan-Meier figure. |
 | `run_eda.py` | Runs the EDA. Writes tables and the figure, and logs them to MLflow. |
+| `teaching.py` | Toy cohort with known treatment effects, for notebook 01. |
 
 - Keep pure logic in modules like `eda.py`. Keep file and MLflow side effects in `run_*.py` modules.
 - Pass the `Project` object or its parts as arguments. Do not read the config file inside a function.
