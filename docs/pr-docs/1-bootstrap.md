@@ -21,6 +21,7 @@ The repository had only a README. The competition rules check passed. The rules 
 - [x] Ignore `data/`, `.env`, `mlflow.db` and `mlruns/` in git.
 - [x] Add the root `AGENTS.md` with project knowledge and one `AGENTS.md` for each directory.
 - [x] Add the PR template and the PR doc templates.
+- [x] Add the rule to commit early and often to `AGENTS.md`.
 
 ### Tier 2 - EDA
 
