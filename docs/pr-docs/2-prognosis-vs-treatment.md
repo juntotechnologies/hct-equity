@@ -6,48 +6,58 @@ Branch: `feature/prognosis-vs-treatment-notebook`
 
 ## Goal
 
-This PR adds a teaching notebook. The notebook shows why a prognostic model cannot choose a treatment, and which decisions DCA can evaluate. It uses a toy cohort where the true treatment effect is known. Then it shows the same pattern in the CIBMTR synthetic data.
+Teaching notebook: why a prognostic model cannot choose a treatment, and what DCA can evaluate. Toy cohort (truth known) + CIBMTR synthetic data.
 
 ## Context
 
-PR 1 adds the project setup and EDA. The models in later PRs use treatment columns, for example `conditioning_intensity`, as inputs. Readers can confuse a change in predicted risk with a treatment effect. This notebook explains the difference before the model results.
+- Base: PR 1.
+- Later models use treatment columns (e.g. `conditioning_intensity`) as inputs. Risk change ≠ treatment effect.
+
+## Left off
+
+Done: notebook 01 + `teaching.py` + tests. Key result (toy): model says RIC helps fit patients; truth: RIC harms. Model policy 61.9% event risk vs current practice 58.7%.
+
+Next:
+- Shaun: run notebook 01, review.
+- Models PR: Cox + gradient-boosted survival, 5-fold CV, stratified C-index, tests for `eda.py`, nested-function check.
+- Kaggle submission, calibration + DCA, summary: see PR 1 Left off.
 
 ## Implementation Checklist
 
 ### Tier 1 - Configuration and tests
 
-- [x] Add pytest and notebook tools as development dependencies.
-- [x] Add DCA thresholds, toy settings and the real-data treatment example to `config/project.json`.
-- [x] Resolve configured paths against the repository root, so notebooks run from any directory.
-- [x] Add tests for configuration loading, threshold values and path resolution.
+- [x] Dev dependencies: pytest, notebook tools.
+- [x] Config: DCA thresholds, toy settings, real-data treatment example.
+- [x] Config paths resolve against repo root (notebooks run from any directory).
+- [x] Tests: config loading, threshold values, path resolution.
 
 ### Tier 2 - Teaching module
 
-- [x] Add the toy cohort with two potential outcomes and one hidden confounder.
-- [x] Add the naive, model and true effect comparison by frailty.
-- [x] Add treatment policy comparison against the true risks.
-- [x] Add the surveillance DCA with dcurves and the treatment case-mix table.
-- [x] Add tests for each function.
+- [x] Toy cohort: two potential outcomes, one hidden confounder.
+- [x] Effect by frailty: naive vs model vs truth.
+- [x] Treatment policies vs true risks.
+- [x] Surveillance DCA (dcurves) + treatment case-mix table.
+- [x] Tests for each function.
 
 ### Tier 3 - Notebook
 
-- [x] Add `notebooks/01_prognosis_vs_treatment_effect.ipynb` without outputs.
-- [x] List the notebook and module in the directory `AGENTS.md` files.
+- [x] `notebooks/01_prognosis_vs_treatment_effect.ipynb`, no outputs.
+- [x] Notebook + module listed in directory `AGENTS.md` files.
 
 ## Smoke Tests
 
-**Notebook explains the trap · as analyst**
+**Notebook shows the trap · as analyst**
 
 1. Open `notebooks/01_prognosis_vs_treatment_effect.ipynb`.
 2. Run all cells.
 
 Pass if:
-- All cells run without an error.
-- For fit patients, the model effect has the opposite sign to the true effect.
-- The prognostic model policy has a higher event risk than current practice.
-- The DCA plot shows the model line above treat all at high thresholds.
+- No cell errors.
+- Fit patients: model effect sign ≠ true effect sign.
+- Model policy event risk > current practice.
+- DCA plot: model line above treat all at high thresholds.
 
 | Automated check | Command |
 |-----------------|---------|
-| Lint and format | `uv run ruff check src tests && uv run ruff format --check src tests` |
+| Lint + format | `uv run ruff check src tests && uv run ruff format --check src tests` |
 | Unit tests | `uv run pytest` |

@@ -44,6 +44,7 @@ Each directory has its own `AGENTS.md` with the local rules.
 | Run EDA | `uv run python -m hct_equity.run_eda` |
 | Lint | `uv run ruff check src tests && uv run ruff format --check src tests` |
 | Test | `uv run pytest` |
+| PR body | `scripts/pr-body.sh docs/pr-docs/<doc>.md` |
 
 The Kaggle token is `KAGGLE_API_TOKEN` in `.env`. Git ignores `.env`.
 
@@ -71,6 +72,8 @@ When working on coding with me, follow this workflow.
 ## 2. Plan in a PR Doc
 
 - Once I approve the plan, update the relevant PR planning doc in `docs/pr-docs` to capture the scope. Base new docs on `docs/pr-docs/template.md`.
+- Keep PR docs and PR descriptions pithy. Write them in ASD-STE100 shorthand: short fragments, tables and one-line bullets. Do not write long paragraphs.
+- Each PR doc has a "Left off" section: what is done, and what work is left.
 - Order the checklist from least consequential/complex first to most consequential/complex last. Knock out the quick, contained wins before the high-blast-radius work.
 - Include smoke tests in the PR doc: aim for the ~20% of effort that covers ~80% of the blast radius - not exhaustive coverage. Smoke tests are things I confirm manually in the running app, never code that probes the API. Only write a manual walk for what automated tests can't cover (how it looks, real multi-step DB writes, production); list checks the tests already cover in a table instead. Write each walk to be scanned, not read, in the PR doc template's format: bold one-line title with the role, numbered one-action steps, and a "Pass if:" list of things visible on screen - no file/function names or implementation reasoning. It should read as easily as your chat summary of it; if the doc version is harder to parse than how you'd explain it to me, rewrite it.
 - Keep the Implementation Checklist for build work only: tests, code, decisions, and investigations. Never put a manual check in it, such as "check this on screen", "make sure it looks right", or "see the smoke test". Every manual check lives only in the Smoke Tests section, as a walk. A check that an automated test already covers goes in that section's table of automated checks.
@@ -113,7 +116,7 @@ When working on coding with me, follow this workflow.
 
 - When all tests for a task pass, check that task off in the PR doc checklist.
 - Whenever you discover something that should be handled in another PR/doc or later in the current checklist, add it to the list immediately so we don't forget - after confirming with me.
-- The PR description has two parts. First, a short description in ASD-STE100 that says what the PR does. Second, a flat copy of the PR doc's Implementation Checklist and Smoke Tests, with the same wording and the same check state. Put no links in the description. Generate it from the doc with a command when the repo has one.
+- The PR description has three parts: the doc's Goal, its Left off section, and a flat copy of its Implementation Checklist and Smoke Tests, with the same wording and check state. Put no links in the description. Generate it with `scripts/pr-body.sh <doc>`.
 - The PR doc remains the source of truth for scope, progress, decisions, verification, and the production handoff; move future work into its own doc. Change the doc first, then update the description to match it, and read the published description back after you push. Never mark an unrun smoke test complete.
 - When a PR merges, mark its PR doc `Status: done`, move it into `docs/pr-docs/archive/`, and update `docs/pr-docs/README.md`'s table of contents (add an Archive section if one doesn't exist yet) - do this proactively, without waiting to be asked. Use the **PR Doc Archive** skill for this step.
 

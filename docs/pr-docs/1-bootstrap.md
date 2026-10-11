@@ -6,42 +6,55 @@ Branch: `chore/bootstrap-repo`
 
 ## Goal
 
-This PR sets up the project. It adds the uv project, the configuration file, the EDA module and the agent instructions. After this PR, an agent can read `AGENTS.md` and work without a scan of the full repository.
+Set up project: uv env, config, EDA, AGENTS.md files, PR templates.
 
 ## Context
 
-The repository had only a README. The competition rules check passed. The rules allow public code and aggregate results. They forbid redistribution of the data.
+- Repo had README only.
+- Rules check: pass. Public code + aggregate results OK. Data redistribution: forbidden.
+
+## Left off
+
+Done: setup + EDA. Horizon: 12 mo main, 24 mo second check. MLflow: removed.
+
+Next:
+- PR 2: notebook, prognosis vs treatment effect. Open, base = this branch.
+- Models: Cox + gradient-boosted survival, 5-fold CV, stratified C-index.
+- Kaggle submission: notebook, private. Ask Shaun before submit.
+- Calibration + DCA by race group, 12 + 24 mo.
+- Summary (1 page) + README (3 commands).
 
 ## Implementation Checklist
 
 ### Tier 1 - Project files
 
-- [x] Add the uv project for Python 3.11 with the analysis packages, Pydantic and ruff.
-- [x] Add `config/project.json` as the single source for project values.
-- [x] Ignore `data/`, `.env` and Python caches in git.
-- [x] Add the root `AGENTS.md` with project knowledge and one `AGENTS.md` for each directory.
-- [x] Add the PR template and the PR doc templates.
-- [x] Add the rule to commit early and often to `AGENTS.md`.
+- [x] uv project, Python 3.11, analysis packages, Pydantic, ruff.
+- [x] `config/project.json`: single source for project values.
+- [x] Git ignores `data/`, `.env`, Python caches.
+- [x] Root `AGENTS.md` + one `AGENTS.md` per directory.
+- [x] PR template + PR doc templates.
+- [x] Rule: commit early and often.
+- [x] Rule: pithy PR docs and descriptions, ASD-STE100 shorthand. Script: `scripts/pr-body.sh`.
 
 ### Tier 2 - EDA
 
-- [x] Add typed config loading and data access.
-- [x] Remove MLflow. Results go to files under `reports/`.
-- [x] Add EDA summaries: counts, missing values, event rate, event time, and known status at each horizon.
-- [x] Write aggregate EDA tables to `reports/eda/` and the Kaplan-Meier figure to `figures/`.
-- [ ] Add unit tests for `eda.py` and `config.py`. Moved to the models PR.
-- [ ] Add a check that fails on a nested function. Ruff has no rule for this. Moved to the models PR.
+- [x] Typed config loading + data access.
+- [x] Remove MLflow. Results: files under `reports/`.
+- [x] EDA summaries: counts, missing values, event rate, event time, known status per horizon.
+- [x] Aggregate tables → `reports/eda/`. Kaplan-Meier figure → `figures/`.
+- [ ] Tests for `eda.py`. Moved to models PR.
+- [ ] Check that fails on nested function (no ruff rule). Moved to models PR.
 
 ## Smoke Tests
 
-**EDA figure shows synthetic label · as analyst**
+**EDA figure has synthetic label · as analyst**
 
 1. Open `figures/eda_km_by_group.png`.
 
 Pass if:
-- The title says the data is synthetic.
-- There is one curve for each of the six race groups.
+- Title says data is synthetic.
+- Six curves, one per race group.
 
 | Automated check | Command |
 |-----------------|---------|
-| Lint and format | `uv run ruff check src && uv run ruff format --check src` |
+| Lint + format | `uv run ruff check src && uv run ruff format --check src` |
