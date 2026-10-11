@@ -1,6 +1,6 @@
-# PR: Notebook on Prognosis and Treatment Effect
+# PR 2: Notebook on Prognosis and Treatment Effect
 
-Status: in-scope work complete
+Status: underway
 
 Branch: `feature/prognosis-vs-treatment-notebook`
 
