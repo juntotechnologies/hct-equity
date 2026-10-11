@@ -18,14 +18,15 @@ The repository had only a README. The competition rules check passed. The rules 
 
 - [x] Add the uv project for Python 3.11 with the analysis packages, Pydantic and ruff.
 - [x] Add `config/project.json` as the single source for project values.
-- [x] Ignore `data/`, `.env`, `mlflow.db` and `mlruns/` in git.
+- [x] Ignore `data/`, `.env` and Python caches in git.
 - [x] Add the root `AGENTS.md` with project knowledge and one `AGENTS.md` for each directory.
 - [x] Add the PR template and the PR doc templates.
 - [x] Add the rule to commit early and often to `AGENTS.md`.
 
 ### Tier 2 - EDA
 
-- [x] Add typed config loading, data access and MLflow run setup.
+- [x] Add typed config loading and data access.
+- [x] Remove MLflow. Results go to files under `reports/`.
 - [x] Add EDA summaries: counts, missing values, event rate, event time, and known status at each horizon.
 - [x] Write aggregate EDA tables to `reports/eda/` and the Kaplan-Meier figure to `figures/`.
 - [ ] Add unit tests for `eda.py` and `config.py`. Moved to the models PR.

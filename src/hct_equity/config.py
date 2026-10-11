@@ -22,13 +22,6 @@ class Paths(BaseModel):
     reports: Path
 
 
-class MlflowSettings(BaseModel):
-    model_config = ConfigDict(frozen=True)
-    default_tracking_uri: str
-    experiment: str
-    tags: dict[str, str]
-
-
 class Project(BaseModel):
     model_config = ConfigDict(frozen=True)
     competition: str
@@ -37,7 +30,6 @@ class Project(BaseModel):
     columns: Columns
     paths: Paths
     horizons_months: list[int]
-    mlflow: MlflowSettings
 
 
 def load_config(path: Path = CONFIG_PATH) -> Project:

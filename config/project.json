@@ -13,10 +13,8 @@
     "figures": "figures",
     "reports": "reports"
   },
-  "horizons_months": [12, 24],
-  "mlflow": {
-    "default_tracking_uri": "sqlite:///mlflow.db",
-    "experiment": "nmdp/hct-equity",
-    "tags": {"project": "nmdp"}
-  }
+  "horizons_months": [
+    12,
+    24
+  ]
 }
