@@ -22,13 +22,6 @@ class Paths(BaseModel):
     reports: Path
 
 
-class MlflowSettings(BaseModel):
-    model_config = ConfigDict(frozen=True)
-    default_tracking_uri: str
-    experiment: str
-    tags: dict[str, str]
-
-
 class Thresholds(BaseModel):
     model_config = ConfigDict(frozen=True)
     start: float
@@ -73,7 +66,6 @@ class Project(BaseModel):
     columns: Columns
     paths: Paths
     horizons_months: list[int]
-    mlflow: MlflowSettings
     dca_thresholds: Thresholds
     teaching_simulation: SimulationSettings
     treatment_example: TreatmentExample

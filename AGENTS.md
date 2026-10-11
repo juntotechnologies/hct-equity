@@ -19,13 +19,13 @@ An honest result is more important than a high leaderboard score.
 - Do not put competition data in git. This includes files that contain data rows, for example out-of-fold predictions.
 - You must ask Shaun before you make anything public. This includes a public Kaggle notebook, a public repository, and a forum post.
 - Stop and report at each checkpoint: rules, horizon, first DCA, and before the summary. A report has numbers, one figure and three bullets.
-- Log every model run to MLflow. Use `hct_equity.tracking.start_run`.
+- Write run results to files under `reports/`. Git history records which code made them.
 
 ### Where Things Are
 
 | Path | Contents |
 |------|----------|
-| `config/project.json` | All project values: columns, paths, horizons, MLflow experiment, citation. |
+| `config/project.json` | All project values: columns, paths, horizons, citation. |
 | `src/hct_equity/` | Python package. Pure logic and run scripts. |
 | `notebooks/` | Notebooks. They call the package. They do not hold logic. |
 | `data/` | Kaggle files. Not in git. |
@@ -45,7 +45,7 @@ Each directory has its own `AGENTS.md` with the local rules.
 | Lint | `uv run ruff check src tests && uv run ruff format --check src tests` |
 | Test | `uv run pytest` |
 
-The Kaggle token is `KAGGLE_API_TOKEN` in `.env`. Git ignores `.env`. If `MLFLOW_TRACKING_URI` is not set, MLflow uses the default in `config/project.json`.
+The Kaggle token is `KAGGLE_API_TOKEN` in `.env`. Git ignores `.env`.
 
 ### Data Facts
 

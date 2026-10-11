@@ -17,13 +17,6 @@
     12,
     24
   ],
-  "mlflow": {
-    "default_tracking_uri": "sqlite:///mlflow.db",
-    "experiment": "nmdp/hct-equity",
-    "tags": {
-      "project": "nmdp"
-    }
-  },
   "dca_thresholds": {
     "start": 0.05,
     "stop": 0.5,
