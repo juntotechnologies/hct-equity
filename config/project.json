@@ -42,5 +42,17 @@
     "event_logit_severe": 3.0,
     "ric_effect_frail": -1.0,
     "ric_effect_fit": 0.5
+  },
+  "treatment_example": {
+    "column": "conditioning_intensity",
+    "arms": [
+      "MAC",
+      "RIC"
+    ],
+    "case_mix": [
+      "age_at_hct",
+      "comorbidity_score",
+      "karnofsky_score"
+    ]
   }
 }

@@ -4,6 +4,7 @@ Each simulated patient has two potential outcomes: event risk under MAC and
 under RIC. Real data shows only one. Here we keep both, so the truth is known.
 """
 
+import dcurves
 import numpy as np
 import pandas as pd
 from scipy.special import expit
@@ -15,6 +16,7 @@ from hct_equity.config import SimulationSettings
 OBSERVED_FEATURES = ["frail", "ric", "frail_x_ric"]
 ALL_FEATURES = ["frail", "severe", "ric", "frail_x_ric"]
 UNREGULARISED = 1e6
+MODEL_LABEL = "prognostic_model"
 
 
 def treatment_logit(frail: np.ndarray, severe: np.ndarray, s: SimulationSettings) -> np.ndarray:
@@ -87,3 +89,19 @@ def compare_policies(frame: pd.DataFrame, model: LogisticRegression, features: l
     choices = policy_choices(frame, model, features)
     rows = {name: {"event_risk": policy_risk(frame, c), "pct_ric": 100 * c.mean()} for name, c in choices.items()}
     return pd.DataFrame.from_dict(rows, orient="index")
+
+
+def surveillance_dca(
+    frame: pd.DataFrame, model: LogisticRegression, features: list[str], thresholds: list[float]
+) -> pd.DataFrame:
+    """DCA for an act-or-not decision, here extra surveillance. Risk is all it needs."""
+    scored = frame.assign(**{MODEL_LABEL: predict_risk(model, frame, features)})
+    return dcurves.dca(data=scored, outcome="event", modelnames=[MODEL_LABEL], thresholds=thresholds)
+
+
+def arm_case_mix(frame: pd.DataFrame, column: str, arms: list[str], case_mix: list[str], event: str) -> pd.DataFrame:
+    """Who received each treatment arm, and how often they had an event."""
+    chosen = frame[frame[column].isin(arms)]
+    grouped = chosen.groupby(column)
+    table = grouped[case_mix].mean().add_prefix("mean_")
+    return table.assign(n=grouped.size(), event_pct=100 * grouped[event].mean()).loc[arms]

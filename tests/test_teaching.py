@@ -34,3 +34,18 @@ def test_best_policy_is_never_worse_than_any_other(cohort):
     model = teaching.fit_prognostic(cohort, teaching.OBSERVED_FEATURES)
     table = teaching.compare_policies(cohort, model, teaching.OBSERVED_FEATURES)
     assert table.loc["Choose with true risks", "event_risk"] == table["event_risk"].min()
+
+
+def test_arm_case_mix_summarises_only_requested_arms():
+    frame = pd.DataFrame({"arm": ["A", "A", "B", "C"], "event": [1, 0, 1, 1], "age": [40.0, 60.0, 30.0, 99.0]})
+    table = teaching.arm_case_mix(frame, "arm", ["A", "B"], ["age"], "event")
+    assert list(table.index) == ["A", "B"]
+    assert table.loc["A", "n"] == 2
+    assert table.loc["A", "event_pct"] == 50
+    assert table.loc["A", "mean_age"] == 50
+
+
+def test_surveillance_dca_returns_model_all_and_none(cohort):
+    model = teaching.fit_prognostic(cohort, teaching.OBSERVED_FEATURES)
+    result = teaching.surveillance_dca(cohort, model, teaching.OBSERVED_FEATURES, [0.1, 0.2])
+    assert set(result["model"]) == {teaching.MODEL_LABEL, "all", "none"}

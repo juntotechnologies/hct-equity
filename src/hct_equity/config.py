@@ -58,6 +58,13 @@ class SimulationSettings(BaseModel):
     ric_effect_fit: float
 
 
+class TreatmentExample(BaseModel):
+    model_config = ConfigDict(frozen=True)
+    column: str
+    arms: list[str]
+    case_mix: list[str]
+
+
 class Project(BaseModel):
     model_config = ConfigDict(frozen=True)
     competition: str
@@ -69,6 +76,7 @@ class Project(BaseModel):
     mlflow: MlflowSettings
     dca_thresholds: Thresholds
     teaching_simulation: SimulationSettings
+    treatment_example: TreatmentExample
 
 
 def load_config(path: Path = CONFIG_PATH) -> Project:
