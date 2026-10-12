@@ -16,7 +16,9 @@ Answer one question: the competition scored ranking (stratified C-index); does g
 
 ## Left off
 
-Done: config, model, metrics, plots, run script, notebook 02. Result: calibration near-equal (O/E 0.97–1.04); net benefit gain at p_t 0.6 differs 0.07–0.17 by group.
+Status (2026-10-12): build done; waiting for Shaun's review at the "first DCA" checkpoint.
+Done: config, model, metrics, plots, run script, notebook 02. 28 tests, lint and a full notebook run pass.
+Result: calibration near-equal (O/E 0.97–1.04); net benefit gain at p_t 0.6 differs 0.07–0.17 by group.
 Next:
 - Shaun: run notebook 02 and review (smoke test).
 - Shaun: approve a public Kaggle notebook. It must be self-contained; it cannot import `hct_equity`.
