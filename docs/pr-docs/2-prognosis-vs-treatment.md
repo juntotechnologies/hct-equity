@@ -18,7 +18,7 @@ Teaching notebook: why a prognostic model cannot choose a treatment, and what DC
 Done: notebook 01 + `teaching.py` + tests. Key result (toy): model says RIC helps fit patients; truth: RIC harms. Model policy 61.9% event risk vs current practice 58.7%.
 
 Next:
-- Shaun: run notebook 01, review.
+- Shaun: read rewritten notebook 01 (plain-language text), run it, review.
 - Models PR: Cox + gradient-boosted survival, 5-fold CV, stratified C-index, tests for `eda.py`, nested-function check.
 - Kaggle submission, calibration + DCA, summary: see PR 1 Left off.
 
@@ -43,6 +43,8 @@ Next:
 
 - [x] `notebooks/01_prognosis_vs_treatment_effect.ipynb`, no outputs.
 - [x] Notebook + module listed in directory `AGENTS.md` files.
+- [x] Abbreviation key at top of notebook.
+- [x] Plain-language rewrite of notebook text: hospital example, answer key, every term defined at first use.
 
 ## Smoke Tests
 
@@ -56,6 +58,14 @@ Pass if:
 - Fit patients: model effect sign ≠ true effect sign.
 - Model policy event risk > current practice.
 - DCA plot: model line above treat all at high thresholds.
+
+**Notebook reads clearly · as non-specialist**
+
+1. Read the notebook text from top to bottom.
+
+Pass if:
+- Each term or abbreviation has a definition before or at first use.
+- The source of `true_effect`, `model_effect` and `naive_effect` is clear.
 
 | Automated check | Command |
 |-----------------|---------|
