@@ -74,7 +74,6 @@ class FairnessPlot(BaseModel):
     model_color: str
     reference_color: str
     treat_none_color: str
-    note_color: str
 
 
 class FairnessSettings(BaseModel):
@@ -87,6 +86,7 @@ class FairnessSettings(BaseModel):
     penalizer: float
     risk_bins: int
     dca_thresholds: Thresholds
+    table_thresholds: list[float]
     figure_names: FairnessFigures
     plot: FairnessPlot
     report_name: str

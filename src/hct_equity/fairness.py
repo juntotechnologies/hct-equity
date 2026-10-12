@@ -102,10 +102,20 @@ def dca_by_group(frame: pd.DataFrame, columns: Columns, horizon: float, threshol
     return pd.concat(parts, names=[columns.group]).reset_index(level=0)
 
 
+def curve_at(dca: pd.DataFrame, columns: Columns, model: str, thresholds: list[float]) -> pd.DataFrame:
+    """Net benefit of one curve at chosen thresholds: one row per group, one column per threshold."""
+    curve = dca[(dca["model"] == model) & dca["threshold"].round(4).isin(thresholds)]
+    return curve.pivot(index=columns.group, columns="threshold", values="net_benefit")
+
+
 def net_benefit_at(dca: pd.DataFrame, columns: Columns, thresholds: list[float]) -> pd.DataFrame:
-    """Model net benefit at chosen thresholds: one row per group, one column per threshold."""
-    model = dca[(dca["model"] == MODEL_LABEL) & dca["threshold"].round(4).isin(thresholds)]
-    return model.pivot(index=columns.group, columns="threshold", values="net_benefit")
+    return curve_at(dca, columns, MODEL_LABEL, thresholds)
+
+
+def net_benefit_gain(dca: pd.DataFrame, columns: Columns, thresholds: list[float]) -> pd.DataFrame:
+    """Model net benefit minus the better default strategy (treat all or treat none)."""
+    best_default = np.maximum(curve_at(dca, columns, "all", thresholds), curve_at(dca, columns, "none", thresholds))
+    return net_benefit_at(dca, columns, thresholds) - best_default
 
 
 def recalibrate_fold(train: pd.DataFrame, test: pd.DataFrame, columns: Columns, horizon: float) -> np.ndarray:

@@ -9,3 +9,4 @@ Notebooks show results. They do not hold logic.
 | Notebook | Topic |
 |----------|-------|
 | `01_prognosis_vs_treatment_effect.ipynb` | Why a prognostic model cannot choose a treatment, and what DCA can answer. |
+| `02_calibration_dca_by_race.ipynb` | Does good ranking give equally good decisions in each race group? C-index, calibration, DCA. |

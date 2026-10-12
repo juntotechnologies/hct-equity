@@ -69,7 +69,7 @@
       "calibration": "fairness_calibration_by_group.png",
       "dca": "fairness_dca_by_group.png"
     },
-    "report_name": "fairness_metrics_by_group.csv",
+    "report_name": "fairness_metrics_by_group.md",
     "plot": {
       "group_colors": [
         "#2a78d6",
@@ -89,8 +89,12 @@
       ],
       "model_color": "#2a78d6",
       "reference_color": "#8a8a85",
-      "treat_none_color": "#2b2b28",
-      "note_color": "#55554f"
-    }
+      "treat_none_color": "#2b2b28"
+    },
+    "table_thresholds": [
+      0.2,
+      0.4,
+      0.6
+    ]
   }
 }

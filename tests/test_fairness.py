@@ -82,3 +82,17 @@ def test_net_benefit_at_pivots_groups_by_threshold():
     result = fairness.dca_by_group(scored_frame(), COLUMNS, 12, [0.2, 0.4])
     table = fairness.net_benefit_at(result, COLUMNS, [0.2, 0.4])
     assert table.shape == (2, 2)
+
+
+def test_net_benefit_gain_subtracts_the_best_default():
+    dca = pd.DataFrame(
+        {
+            "race_group": ["A"] * 6,
+            "model": [fairness.MODEL_LABEL, "all", "none"] * 2,
+            "threshold": [0.2, 0.2, 0.2, 0.6, 0.6, 0.6],
+            "net_benefit": [0.5, 0.4, 0.0, 0.1, -0.2, 0.0],
+        }
+    )
+    gain = fairness.net_benefit_gain(dca, COLUMNS, [0.2, 0.6])
+    assert gain.loc["A", 0.2] == pytest.approx(0.1)
+    assert gain.loc["A", 0.6] == pytest.approx(0.1)

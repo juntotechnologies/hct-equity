@@ -16,39 +16,40 @@ Answer one question: the competition scored ranking (stratified C-index); does g
 
 ## Left off
 
-Done: plan.
+Done: config, model, metrics, plots, run script, notebook 02. Result: calibration near-equal (O/E 0.97–1.04); net benefit gain at p_t 0.6 differs 0.07–0.17 by group.
 Next:
-- Build config, model, metrics, plots, notebook 02.
-- Shaun: review notebook 02.
-- Shaun: approve before a public Kaggle notebook.
+- Shaun: run notebook 02 and review (smoke test).
+- Shaun: approve a public Kaggle notebook. It must be self-contained; it cannot import `hct_equity`.
+- Follow-up: `eda.km_risk` and `fairness.km_risk` overlap; merge into one.
 
 ## Implementation Checklist
 
 ### Tier 1 - Configuration
 
-- [ ] Config: `fairness` section (horizon, folds, seed, penalizer, risk bins). Horizon must be one of `horizons_months`.
-- [ ] Tests: config loads; a horizon outside `horizons_months` fails validation.
+- [x] Config: `fairness` section (horizon, folds, seed, penalizer, risk bins). Horizon must be one of `horizons_months`.
+- [x] Tests: config loads; a horizon outside `horizons_months` fails validation.
 
 ### Tier 2 - Metrics by group (`fairness.py`, pure)
 
-- [ ] Per group: n, events by 12 months, C-index, observed/expected (O/E) ratio, calibration slope.
-- [ ] Stratified C-index: mean minus standard deviation across groups (competition metric).
-- [ ] Calibration by risk decile: mean predicted vs Kaplan-Meier (KM) observed risk.
-- [ ] Time-to-event DCA per group with `dcurves`.
-- [ ] Tests for each function, on small frames with known answers.
+- [x] Per group: n, events by 12 months, C-index, observed/expected (O/E) ratio, calibration slope.
+- [x] Stratified C-index: mean minus standard deviation across groups (competition metric).
+- [x] Calibration by risk decile: mean predicted vs Kaplan-Meier (KM) observed risk.
+- [x] Time-to-event DCA per group with `dcurves`.
+- [x] Net benefit gain: model minus the better of treat all / treat none. Raw net benefit tracks event rate.
+- [x] Tests for each function, on small frames with known answers.
 
 ### Tier 3 - Model (`model.py`)
 
-- [ ] Cox model (lifelines, ridge penalty). In-fold imputation and one-hot encoding. No tuning.
-- [ ] 5-fold out-of-fold 12-month risk, stratified by race group and event.
-- [ ] Tests: every row gets 1 prediction; risk in [0, 1]; no fold sees its own test rows.
+- [x] Cox model (lifelines, ridge penalty). In-fold imputation and one-hot encoding. No tuning.
+- [x] 5-fold out-of-fold 12-month risk, stratified by race group and event.
+- [x] Tests: every row gets 1 prediction; risk in [0, 1]; no fold sees its own test rows.
 
 ### Tier 4 - Plots, run script, notebook
 
-- [ ] Plots: 1 calibration figure, 1 DCA figure (1 panel per group). Each carries `synthetic_note`.
-- [ ] `run_fairness.py`: writes the metrics table to `reports/` and figures to `figures/`.
-- [ ] Notebook 02, 6 sections: question, data and model, C-index, calibration, DCA, result.
-- [ ] Exploratory: per-group recalibration; does it restore net benefit?
+- [x] Plots: 1 calibration figure, 1 DCA figure (1 panel per group). Each carries `synthetic_note`.
+- [x] `run_fairness.py`: writes the metrics table to `reports/` and figures to `figures/`.
+- [x] Notebook 02, 6 sections: question, data and model, C-index, calibration, DCA, result.
+- [x] Exploratory: per-group recalibration; does it restore net benefit?
 
 ## Smoke Tests
 
@@ -69,10 +70,13 @@ Next:
 | Config horizon validation | `tests/test_config.py` |
 | Metric values on known inputs | `tests/test_fairness.py` |
 | Out-of-fold predictions | `tests/test_model.py` |
+| Figure titles carry the synthetic note | `tests/test_fairness_plots.py` |
 
 ## Product Decisions
 
 - 1 model, not top public solutions: no model existed, and top solutions need their notebooks run. Notebook says "1 model".
+- Race group is a model feature, as in competition models.
+- Compare groups by net benefit gain, not raw net benefit: overall event rates differ (47–63%).
 - 12-month horizon only. 24 months is future work.
 - Censoring: O/E and decile calibration use KM observed risk. Calibration slope drops the 0.8% censored before 12 months.
 - Notebook 01 stays as is. This notebook replaces its causal scope for the CIBMTR pitch.

@@ -1,4 +1,4 @@
-"""Figures for notebook 02. Each figure carries the synthetic-data note."""
+"""Figures for notebook 02. Each title carries the synthetic-data note."""
 
 import math
 
@@ -10,11 +10,6 @@ from hct_equity.fairness import MODEL_LABEL
 
 PANEL_COLUMNS = 3
 REFERENCE_LABELS = {"all": "Treat all", "none": "Treat none"}
-NOTE_POSITION = (0.5, 0.005)
-
-
-def add_note(fig: plt.Figure, note: str, color: str) -> None:
-    fig.text(*NOTE_POSITION, note, ha="center", va="bottom", fontsize=8, color=color)
 
 
 def plot_calibration(deciles: pd.DataFrame, columns: Columns, style: FairnessPlot, note: str) -> plt.Figure:
@@ -25,11 +20,10 @@ def plot_calibration(deciles: pd.DataFrame, columns: Columns, style: FairnessPlo
     for (name, part), color, marker in zip(groups, style.group_colors, style.group_markers, strict=False):
         ax.plot(part["predicted"], part["observed"], color=color, marker=marker, markersize=6, linewidth=2, label=name)
     ax.set(xlabel="Predicted risk by horizon", ylabel="Observed risk (Kaplan-Meier)", xlim=(0, 1), ylim=(0, 1))
-    ax.set_title("Calibration by race group (out-of-fold, risk deciles)", fontsize=11)
+    ax.set_title(f"Calibration by race group (out-of-fold, risk deciles)\n{note}", fontsize=10)
     ax.grid(alpha=0.3)
     ax.legend(fontsize=8, frameon=False)
-    add_note(fig, note, style.note_color)
-    fig.tight_layout(rect=(0, 0.03, 1, 1))
+    fig.tight_layout()
     return fig
 
 
@@ -57,6 +51,6 @@ def plot_dca_by_group(dca: pd.DataFrame, columns: Columns, style: FairnessPlot, 
     axes[0, 0].legend(fontsize=8, frameon=False)
     fig.supxlabel("Threshold probability")
     fig.supylabel("Net benefit")
-    add_note(fig, note, style.note_color)
-    fig.tight_layout(rect=(0, 0.03, 1, 1))
+    fig.suptitle(f"Net benefit by race group (out-of-fold Cox model)\n{note}", fontsize=11)
+    fig.tight_layout()
     return fig
