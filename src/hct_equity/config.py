@@ -65,6 +65,18 @@ class FairnessFigures(BaseModel):
     dca: str
 
 
+class FairnessPlot(BaseModel):
+    """Validated categorical palette, one slot per group in sorted order."""
+
+    model_config = ConfigDict(frozen=True)
+    group_colors: list[str]
+    group_markers: list[str]
+    model_color: str
+    reference_color: str
+    treat_none_color: str
+    note_color: str
+
+
 class FairnessSettings(BaseModel):
     """Calibration and DCA by race group. See notebooks/02."""
 
@@ -76,6 +88,7 @@ class FairnessSettings(BaseModel):
     risk_bins: int
     dca_thresholds: Thresholds
     figure_names: FairnessFigures
+    plot: FairnessPlot
     report_name: str
 
 
