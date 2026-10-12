@@ -18,7 +18,8 @@ Teaching notebook: why a prognostic model cannot choose a treatment, and what DC
 Done: notebook 01 + `teaching.py` + tests. Key result (toy): model says RIC helps fit patients; truth: RIC harms. Model policy 61.9% event risk vs current practice 58.7%.
 
 Next:
-- Shaun: read rewritten notebook 01 (plain-language text), run it, review.
+- Shaun: read shorthand notebook 01, run it, review.
+- Shaun: decide notebook scope (keep toy / real data only / limits paragraph only).
 - Models PR: Cox + gradient-boosted survival, 5-fold CV, stratified C-index, tests for `eda.py`, nested-function check.
 - Kaggle submission, calibration + DCA, summary: see PR 1 Left off.
 
@@ -45,6 +46,7 @@ Next:
 - [x] Notebook + module listed in directory `AGENTS.md` files.
 - [x] Abbreviation key at top of notebook.
 - [x] Plain-language rewrite of notebook text: hospital example, answer key, every term defined at first use.
+- [x] Shorthand ASD-STE100 rewrite of notebook text: fragments, tables, one key for all terms.
 
 ## Smoke Tests
 
