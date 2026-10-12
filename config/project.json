@@ -1,0 +1,20 @@
+{
+  "competition": "equity-post-HCT-survival-predictions",
+  "synthetic_note": "Synthetic data (Kaggle CIBMTR competition; generated from de-identified patients)",
+  "citation": "Tushar Deshpande, Deniz Akdemir, Walter Reade, Ashley Chow, Maggie Demkin, and Yung-Tsi Bolon. CIBMTR - Equity in post-HCT Survival Predictions. https://kaggle.com/competitions/equity-post-HCT-survival-predictions. Kaggle.",
+  "columns": {
+    "id": "ID",
+    "event": "efs",
+    "time": "efs_time",
+    "group": "race_group"
+  },
+  "paths": {
+    "train": "data/train.csv",
+    "figures": "figures",
+    "reports": "reports"
+  },
+  "horizons_months": [
+    12,
+    24
+  ]
+}
