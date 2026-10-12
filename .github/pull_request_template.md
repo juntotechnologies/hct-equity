@@ -23,8 +23,9 @@ Use this before merging any PR.
 
 ## Required Checks
 
-- [ ] `uv run ruff check src` passes.
-- [ ] `uv run ruff format --check src` passes.
+- [ ] `uv run ruff check src tests` passes.
+- [ ] `uv run ruff format --check src tests` passes.
+- [ ] `uv run pytest` passes.
 - [ ] No competition data or row-level output is in the diff.
 - [ ] CI is green, when the change touches CI or the merge needs it.
 

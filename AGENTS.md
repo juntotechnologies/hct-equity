@@ -42,7 +42,8 @@ Each directory has its own `AGENTS.md` with the local rules.
 | Install | `uv sync` |
 | Get data | `set -a; . ./.env; set +a; uv run kaggle competitions download -c equity-post-HCT-survival-predictions -p data` |
 | Run EDA | `uv run python -m hct_equity.run_eda` |
-| Lint | `uv run ruff check src && uv run ruff format --check src` |
+| Lint | `uv run ruff check src tests && uv run ruff format --check src tests` |
+| Test | `uv run pytest` |
 | PR body | `scripts/pr-body.sh docs/pr-docs/<doc>.md` |
 
 The Kaggle token is `KAGGLE_API_TOKEN` in `.env`. Git ignores `.env`.

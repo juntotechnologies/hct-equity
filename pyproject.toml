@@ -16,6 +16,10 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "ipykernel>=7.4.0",
+    "nbconvert>=7.17.1",
+    "nbformat>=5.11.1",
+    "pytest>=9.1.1",
     "ruff>=0.17.0",
 ]
 
@@ -40,3 +44,9 @@ max-complexity = 5
 max-statements = 15
 max-branches = 5
 max-args = 5
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["PLR2004"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
