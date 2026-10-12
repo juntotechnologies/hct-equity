@@ -6,7 +6,8 @@
     "id": "ID",
     "event": "efs",
     "time": "efs_time",
-    "group": "race_group"
+    "group": "race_group",
+    "risk": "predicted_risk"
   },
   "paths": {
     "train": "data/train.csv",
@@ -52,5 +53,22 @@
     "start": 0.01,
     "stop": 0.95,
     "step": 0.01
+  },
+  "fairness": {
+    "horizon_months": 12,
+    "folds": 5,
+    "seed": 42,
+    "penalizer": 0.1,
+    "risk_bins": 10,
+    "dca_thresholds": {
+      "start": 0.05,
+      "stop": 0.95,
+      "step": 0.01
+    },
+    "figure_names": {
+      "calibration": "fairness_calibration_by_group.png",
+      "dca": "fairness_dca_by_group.png"
+    },
+    "report_name": "fairness_metrics_by_group.csv"
   }
 }

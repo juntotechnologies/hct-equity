@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, model_validator
 
 CONFIG_PATH = Path(__file__).resolve().parents[2] / "config" / "project.json"
 
@@ -13,6 +13,7 @@ class Columns(BaseModel):
     event: str
     time: str
     group: str
+    risk: str
 
 
 class Paths(BaseModel):
@@ -58,6 +59,26 @@ class TreatmentExample(BaseModel):
     case_mix: list[str]
 
 
+class FairnessFigures(BaseModel):
+    model_config = ConfigDict(frozen=True)
+    calibration: str
+    dca: str
+
+
+class FairnessSettings(BaseModel):
+    """Calibration and DCA by race group. See notebooks/02."""
+
+    model_config = ConfigDict(frozen=True)
+    horizon_months: int
+    folds: int
+    seed: int
+    penalizer: float
+    risk_bins: int
+    dca_thresholds: Thresholds
+    figure_names: FairnessFigures
+    report_name: str
+
+
 class Project(BaseModel):
     model_config = ConfigDict(frozen=True)
     competition: str
@@ -70,6 +91,13 @@ class Project(BaseModel):
     teaching_simulation: SimulationSettings
     treatment_example: TreatmentExample
     teaching_dca_thresholds: Thresholds
+    fairness: FairnessSettings
+
+    @model_validator(mode="after")
+    def fairness_horizon_is_a_project_horizon(self) -> "Project":
+        if self.fairness.horizon_months not in self.horizons_months:
+            raise ValueError(f"fairness.horizon_months must be one of {self.horizons_months}")
+        return self
 
 
 def resolve_paths(paths: Paths, root: Path) -> Paths:
