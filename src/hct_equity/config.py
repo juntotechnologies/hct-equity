@@ -1,10 +1,24 @@
 """Typed project configuration, loaded once from config/project.json."""
 
 from pathlib import Path
+from typing import Literal
 
 from pydantic import BaseModel, ConfigDict
 
 CONFIG_PATH = Path(__file__).resolve().parents[2] / "config" / "project.json"
+LABELS_PATH = CONFIG_PATH.with_name("labels.json")
+
+FormatKind = Literal[
+    "percent",
+    "percent_one_decimal",
+    "percent_value",
+    "points",
+    "count",
+    "one_decimal",
+    "two_decimals",
+    "three_decimals",
+    "signed_three_decimals",
+]
 
 
 class Columns(BaseModel):
@@ -80,3 +94,19 @@ def load_config(path: Path = CONFIG_PATH) -> Project:
     """Paths resolve against the repository root, so notebooks can run from any directory."""
     project = Project.model_validate_json(path.read_text())
     return project.model_copy(update={"paths": resolve_paths(project.paths, path.parents[1])})
+
+
+class Labels(BaseModel):
+    """Display names and number formats for notebook tables."""
+
+    model_config = ConfigDict(frozen=True)
+    combined_index_name: str
+    index_names: dict[str, str]
+    values: dict[str, dict[str, str]]
+    column_templates: dict[str, str]
+    columns: dict[str, str]
+    formats: dict[str, FormatKind]
+
+
+def load_labels(path: Path = LABELS_PATH) -> Labels:
+    return Labels.model_validate_json(path.read_text())

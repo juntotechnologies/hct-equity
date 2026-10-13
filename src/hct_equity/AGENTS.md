@@ -9,6 +9,7 @@ This is the Python package. Install it with `uv sync`. Run modules with `uv run 
 | `eda.py` | Pure EDA summaries and the Kaplan-Meier figure. |
 | `run_eda.py` | Runs the EDA. Writes tables and the figure. |
 | `teaching.py` | Toy cohort with known treatment effects, for notebook 01. |
+| `readable.py` | Shows notebook tables with plain labels and formatted numbers, from `config/labels.json`. |
 
 - Keep pure logic in modules like `eda.py`. Keep file side effects in `run_*.py` modules.
 - Pass the `Project` object or its parts as arguments. Do not read the config file inside a function.

@@ -26,6 +26,7 @@ An honest result is more important than a high leaderboard score.
 | Path | Contents |
 |------|----------|
 | `config/project.json` | All project values: columns, paths, horizons, citation. |
+| `config/labels.json` | Display names and number formats for notebook tables. |
 | `src/hct_equity/` | Python package. Pure logic and run scripts. |
 | `notebooks/` | Notebooks. They call the package. They do not hold logic. |
 | `data/` | Kaggle files. Not in git. |
