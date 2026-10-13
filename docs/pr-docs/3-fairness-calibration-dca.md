@@ -16,7 +16,7 @@ Answer one question: the competition scored ranking (stratified C-index); does g
 
 ## Left off
 
-Status (2026-10-12): build done; waiting for Shaun's review at the "first DCA" checkpoint.
+Status (2026-10-13): build done; tables readable; waiting for Shaun's review at the "first DCA" checkpoint.
 Done: config, model, metrics, plots, run script, notebook 02. 28 tests, lint and a full notebook run pass.
 Result: calibration near-equal (O/E 0.97–1.04); net benefit gain at p_t 0.6 differs 0.07–0.17 by group.
 Next:
@@ -52,6 +52,7 @@ Next:
 - [x] `run_fairness.py`: writes the metrics table to `reports/` and figures to `figures/`.
 - [x] Notebook 02, 6 sections: question, data and model, C-index, calibration, DCA, result.
 - [x] Exploratory: per-group recalibration; does it restore net benefit?
+- [x] Notebook 02 tables use plain labels and formatted numbers (`readable.py`, merged from `main`).
 
 ## Smoke Tests
 

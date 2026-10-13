@@ -13,6 +13,7 @@ This is the Python package. Install it with `uv sync`. Run modules with `uv run 
 | `fairness.py` | Pure per-group C-index, calibration, DCA and recalibration, for notebook 02. |
 | `fairness_plots.py` | Calibration and DCA figures, for notebook 02. |
 | `run_fairness.py` | Runs notebook 02's analysis. Writes the metrics table and figures. |
+| `readable.py` | Shows notebook tables with plain labels and formatted numbers, from `config/labels.json`. |
 
 - Keep pure logic in modules like `eda.py`. Keep file side effects in `run_*.py` modules.
 - Pass the `Project` object or its parts as arguments. Do not read the config file inside a function.

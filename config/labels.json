@@ -1,0 +1,78 @@
+{
+  "combined_index_name": "Patient group",
+  "index_names": {
+    "frail": "Patient group",
+    "ric": "Treatment",
+    "race_group": "Race group",
+    "conditioning_intensity": "Conditioning"
+  },
+  "values": {
+    "frail": {
+      "0": "Fit",
+      "1": "Frail"
+    },
+    "severe": {
+      "0": "Not severe",
+      "1": "Severe"
+    },
+    "ric": {
+      "0": "MAC",
+      "1": "RIC"
+    }
+  },
+  "column_templates": {
+    "threshold": "Threshold {value:.0%}"
+  },
+  "columns": {
+    "ric": "Got RIC",
+    "risk_mac": "Event risk with MAC",
+    "risk_ric": "Event risk with RIC",
+    "event_rate": "Event rate",
+    "true_effect": "True effect of RIC (answer key)",
+    "model_effect": "Model's estimate",
+    "naive_effect": "Naive comparison",
+    "event_risk": "Average event risk",
+    "pct_ric": "Patients given RIC",
+    "n": "Patients",
+    "event_pct": "Event rate",
+    "mean_age_at_hct": "Mean age at HCT (years)",
+    "mean_comorbidity_score": "Mean comorbidity score",
+    "mean_karnofsky_score": "Mean Karnofsky score",
+    "missing_cell_pct": "Missing values",
+    "efs_event_pct": "Event rate (any time)",
+    "time_p25": "Follow-up, 25th percentile (months)",
+    "time_median": "Follow-up, median (months)",
+    "time_p75": "Follow-up, 75th percentile (months)",
+    "time_max": "Follow-up, longest (months)",
+    "events_by_horizon": "Events by the horizon",
+    "c_index": "C-index",
+    "observed_expected": "Observed ÷ expected",
+    "calibration_slope": "Calibration slope"
+  },
+  "formats": {
+    "ric": "percent",
+    "risk_mac": "percent",
+    "risk_ric": "percent",
+    "event_rate": "percent",
+    "event_risk": "percent_one_decimal",
+    "true_effect": "points",
+    "model_effect": "points",
+    "naive_effect": "points",
+    "pct_ric": "percent_value",
+    "event_pct": "percent_value",
+    "missing_cell_pct": "percent_value",
+    "efs_event_pct": "percent_value",
+    "n": "count",
+    "events_by_horizon": "count",
+    "mean_age_at_hct": "one_decimal",
+    "mean_comorbidity_score": "one_decimal",
+    "mean_karnofsky_score": "one_decimal",
+    "time_p25": "one_decimal",
+    "time_median": "one_decimal",
+    "time_p75": "one_decimal",
+    "time_max": "one_decimal",
+    "c_index": "three_decimals",
+    "observed_expected": "two_decimals",
+    "calibration_slope": "two_decimals"
+  }
+}
