@@ -49,3 +49,9 @@ def test_surveillance_dca_returns_model_all_and_none(cohort):
     model = teaching.fit_prognostic(cohort, teaching.OBSERVED_FEATURES)
     result = teaching.surveillance_dca(cohort, model, teaching.OBSERVED_FEATURES, [0.1, 0.2])
     assert set(result["model"]) == {teaching.MODEL_LABEL, "all", "none"}
+
+
+def test_effect_table_shows_target_then_estimates(cohort):
+    model = teaching.fit_prognostic(cohort, teaching.OBSERVED_FEATURES)
+    table = teaching.effect_by_frailty(cohort, model, teaching.OBSERVED_FEATURES)
+    assert list(table.columns) == ["true_effect", "naive_effect", "model_effect"]

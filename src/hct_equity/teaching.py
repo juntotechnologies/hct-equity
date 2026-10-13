@@ -17,6 +17,7 @@ OBSERVED_FEATURES = ["frail", "ric", "frail_x_ric"]
 ALL_FEATURES = ["frail", "severe", "ric", "frail_x_ric"]
 UNREGULARISED = 1e6
 MODEL_LABEL = "prognostic_model"
+EFFECT_COLUMNS = ["true_effect", "naive_effect", "model_effect"]
 
 
 def treatment_logit(frail: np.ndarray, severe: np.ndarray, s: SimulationSettings) -> np.ndarray:
@@ -67,7 +68,7 @@ def effect_by_frailty(frame: pd.DataFrame, model: LogisticRegression, features: 
     table = frame.assign(true_effect=frame["risk_ric"] - frame["risk_mac"], model_effect=ric - mac)
     naive = frame.groupby(["frail", "ric"])["event"].mean().unstack()
     result = table.groupby("frail")[["true_effect", "model_effect"]].mean()
-    return result.assign(naive_effect=naive[1] - naive[0])
+    return result.assign(naive_effect=naive[1] - naive[0])[EFFECT_COLUMNS]
 
 
 def policy_risk(frame: pd.DataFrame, choose_ric: np.ndarray) -> float:
