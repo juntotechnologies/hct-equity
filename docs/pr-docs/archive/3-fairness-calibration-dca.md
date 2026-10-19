@@ -1,6 +1,6 @@
 # PR 3: Calibration and DCA by Race Group
 
-Status: underway
+Status: done
 
 Branch: `feature/fairness-calibration-dca`
 
@@ -96,4 +96,4 @@ Next:
 
 ## Related Docs
 
-- [PR 2: Notebook on prognosis and treatment effect](./archive/2-prognosis-vs-treatment.md)
+- [PR 2: Notebook on prognosis and treatment effect](./2-prognosis-vs-treatment.md)
