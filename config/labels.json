@@ -44,7 +44,7 @@
     "time_median": "Follow-up, median (months)",
     "time_p75": "Follow-up, 75th percentile (months)",
     "time_max": "Follow-up, longest (months)",
-    "events_by_horizon": "Events by 12 months",
+    "events_by_horizon": "Events by the horizon",
     "c_index": "C-index",
     "observed_expected": "Observed ÷ expected",
     "calibration_slope": "Calibration slope"

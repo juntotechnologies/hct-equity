@@ -1,4 +1,9 @@
-from hct_equity.config import Thresholds, load_config
+import json
+
+import pytest
+from pydantic import ValidationError
+
+from hct_equity.config import CONFIG_PATH, Project, Thresholds, load_config
 
 
 def test_config_loads_and_validates():
@@ -17,3 +22,16 @@ def test_paths_resolve_against_repository_root():
     project = load_config()
     assert project.paths.train.is_absolute()
     assert project.paths.train.parent.parent == project.paths.figures.parent
+
+
+def test_fairness_settings_load():
+    fairness = load_config().fairness
+    assert fairness.horizon_months in load_config().horizons_months
+    assert fairness.folds >= 2
+
+
+def test_fairness_horizon_must_be_a_project_horizon():
+    raw = json.loads(CONFIG_PATH.read_text())
+    raw["fairness"]["horizon_months"] = 7
+    with pytest.raises(ValidationError):
+        Project.model_validate(raw)

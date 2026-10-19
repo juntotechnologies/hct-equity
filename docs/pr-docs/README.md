@@ -6,6 +6,7 @@ Short PR-specific notes for completed and planned work.
 
 | Doc | Description |
 |-----|-------------|
+| [PR 3: Calibration and DCA by race group](./3-fairness-calibration-dca.md) | Notebook 02: C-index, calibration and net benefit by race group for 1 Cox model. |
 
 ### Archive
 

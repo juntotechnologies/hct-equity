@@ -3,7 +3,7 @@
 from pathlib import Path
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, model_validator
 
 CONFIG_PATH = Path(__file__).resolve().parents[2] / "config" / "project.json"
 LABELS_PATH = CONFIG_PATH.with_name("labels.json")
@@ -27,6 +27,7 @@ class Columns(BaseModel):
     event: str
     time: str
     group: str
+    risk: str
 
 
 class Paths(BaseModel):
@@ -72,6 +73,39 @@ class TreatmentExample(BaseModel):
     case_mix: list[str]
 
 
+class FairnessFigures(BaseModel):
+    model_config = ConfigDict(frozen=True)
+    calibration: str
+    dca: str
+
+
+class FairnessPlot(BaseModel):
+    """Validated categorical palette, one slot per group in sorted order."""
+
+    model_config = ConfigDict(frozen=True)
+    group_colors: list[str]
+    group_markers: list[str]
+    model_color: str
+    reference_color: str
+    treat_none_color: str
+
+
+class FairnessSettings(BaseModel):
+    """Calibration and DCA by race group. See notebooks/02."""
+
+    model_config = ConfigDict(frozen=True)
+    horizon_months: int
+    folds: int
+    seed: int
+    penalizer: float
+    risk_bins: int
+    dca_thresholds: Thresholds
+    table_thresholds: list[float]
+    figure_names: FairnessFigures
+    plot: FairnessPlot
+    report_name: str
+
+
 class Project(BaseModel):
     model_config = ConfigDict(frozen=True)
     competition: str
@@ -84,6 +118,13 @@ class Project(BaseModel):
     teaching_simulation: SimulationSettings
     treatment_example: TreatmentExample
     teaching_dca_thresholds: Thresholds
+    fairness: FairnessSettings
+
+    @model_validator(mode="after")
+    def fairness_horizon_is_a_project_horizon(self) -> "Project":
+        if self.fairness.horizon_months not in self.horizons_months:
+            raise ValueError(f"fairness.horizon_months must be one of {self.horizons_months}")
+        return self
 
 
 def resolve_paths(paths: Paths, root: Path) -> Paths:
