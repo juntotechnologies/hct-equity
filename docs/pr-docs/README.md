@@ -6,6 +6,7 @@ Short PR-specific notes for completed and planned work.
 
 | Doc | Description |
 |-----|-------------|
+| [regular reviewer, not hostile](./planned-regular-reviewer.md) | `AGENTS.md` tells agents to reread their diff as a regular reviewer. |
 
 ### Archive
 
