@@ -140,7 +140,7 @@ When working on coding with me, follow this workflow.
 - Local verification is the proof. Before reporting work as done, run the project's full local checks (typecheck, lint, unit and end-to-end tests, or whatever the project defines) on the exact commit being reported, and state the results. Never report results from an earlier session or another agent as if you had run them - rerun, or say they weren't rerun.
 - Don't dispatch or check remote CI routinely; a passing local run on the same commit already covers it. Run CI only when a change touches the CI config/workflows themselves, or when I ask (e.g. right before merge). When you do run it, wait for it to finish before reporting.
 - Report a measurement only with the method that produced it, and check that method before publishing the number.
-- Before committing, reread the whole diff as a hostile reviewer would, including every function you touched. Never patch lines into an ugly function: restructure it in the same change, or say explicitly why not.
+- Before committing, reread the whole diff as a regular reviewer would, including every function you touched. Never patch lines into an ugly function: restructure it in the same change, or say explicitly why not.
 
 ## 9. Run Python Through uv, Never Bare python/python3
 
